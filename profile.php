@@ -3,17 +3,22 @@
     // Initialize the session
     session_start();
 
+    //active nav menu
     $_SESSION['nav'] = 'profile';
 
+    //title of page
     global $title;
     $title = "My Profile";
 
     include "includes/checkLoggedIn.php";
+
+    //defining error messages
     $nameErrorMessage = $emailErrorMessage = "";
     $currentPasswordErrorMessage = $newPasswordErrorMessage = $confirmNewPasswordErrorMessage = "";
 
     $successMessage = $errorMessage = "";
 
+    //if request is post method
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $user_id = $_SESSION['id'];
         $now = date('Y-m-d H:i:s');
@@ -40,6 +45,7 @@
                 }
             }
 
+            //if there is no problem on validation
             if(empty($emailErrorMessage) && empty($nameErrorMessage) && empty($errorMessage)) {
                 $queryUpdateProfile = "UPDATE users SET name='$name', email='$email', updated_at='$now' WHERE id = $user_id";
 
@@ -105,6 +111,7 @@
     }
 ?>
 
+<!--including header-->
 <?php include "partials/header.php"; ?>
 
     <div class="content">
@@ -179,4 +186,5 @@
 
     </div>
 
+<!--including footer-->
 <?php include "partials/footer.php"; ?>

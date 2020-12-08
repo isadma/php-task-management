@@ -34,6 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password = trim($_POST["password"]);
     }
 
+    //if there is no problem on validation
     if(empty($emailErrorMessage) && empty($passwordErrorMessage)) {
 
         $email = $_POST['email'];

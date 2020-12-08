@@ -7,17 +7,21 @@
         header("location: index.php");
     }
 
+    //active nav menu
     $_SESSION['nav'] = 'users';
 
+    //title of page
     global $title;
     $title = "Users";
 
     include "includes/checkLoggedIn.php";
 
+    //defining error messages
     $nameErrorMessage = $emailErrorMessage = $passwordErrorMessage = $confirmPasswordErrorMessage = "";
 
     $errorMessage = $successMessage = "";
 
+    //if request is post method
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $now = date('Y-m-d H:i:s');
 

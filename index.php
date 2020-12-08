@@ -3,8 +3,10 @@
     // Initialize the session
     session_start();
 
+    //active nav menu
     $_SESSION['nav'] = 'home';
 
+    //checking admin or user
     $id = 0;
     if (isset($_GET['id']) && $_SESSION['is_admin']){
         $id = trim($_GET['id']);
@@ -13,12 +15,14 @@
         $id = $_SESSION['id'];
     }
 
+    //title of page
     global $title;
     $title = "Home";
 
     include "includes/checkLoggedIn.php";
 ?>
 
+<!--including header-->
 <?php include "partials/header.php"; ?>
 
     <div id="loading" class="loading d-none"></div>
@@ -37,11 +41,16 @@
 
         <div class="content-data" id="tasks">
             <?php
+
+            //getting tasks from db
             $queryTasks = "SELECT * FROM tasks where user_id=$id order by id desc";
 
             $taskResult = $dbConnection->query($queryTasks);
             if ($taskResult->num_rows > 0) {
                 while ($task = $taskResult->fetch_assoc()) {
+
+                    //showing tasks
+
                     ?>
                     <div class="content-item" id="item<?php echo $task['id']; ?>">
                         <span>
@@ -72,6 +81,7 @@
                         </span>
                     </div>
 
+                    <!--modal for editing new task-->
                     <div id="editTask<?php echo $task['id']; ?>" class="modal">
                         <!-- Modal content -->
                         <div class="modal-content">
@@ -107,6 +117,7 @@
         </div>
     </div>
 
+    <!--modal for creating new task-->
     <div id="createNewTaskModal" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
@@ -132,4 +143,5 @@
         </div>
     </div>
 
+<!--including footer-->
 <?php include "partials/footer.php"; ?>
