@@ -4,7 +4,8 @@
 session_start();
 include "includes/checkLoggedIn.php";
 
-function getLastUpdatedTask($id = false){
+//get task by ID
+function getTask($id){
     include "includes/config.php";
     if ($id){
         $task = mysqli_fetch_assoc(mysqli_query($dbConnection, "SELECT * FROM tasks where id=$id"));
@@ -21,8 +22,10 @@ function getLastUpdatedTask($id = false){
     ];
 }
 
+//if the request is post method
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
+    //if the action is create task
     if ($_POST['type'] == 'addTask'){
 
         //validation
@@ -57,13 +60,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         } else{
             $content = trim($_POST["content"]);
         }
+        
+        //inserting data
         $queryCreateNewTask = "INSERT INTO tasks (user_id, title, body) VALUES ($id, '$title', '$content')";
 
         if ($dbConnection->query($queryCreateNewTask)) {
             echo json_encode([
                 "status" => false,
                 "message" => "New task is successfully created.",
-                "task" => getLastUpdatedTask($dbConnection->insert_id)
+                "task" => getTask($dbConnection->insert_id)
             ]);
         } else {
             echo json_encode([
@@ -73,6 +78,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
         exit;
     }
+    //if the action delete task
     elseif ($_POST['type'] == 'deleteTask'){
         //validation
         // Check if id is empty
@@ -85,6 +91,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         } else{
             $id = trim($_POST["id"]);
         }
+        
+        //deleting task
         $queryDeleteTask = "DELETE from tasks where id = $id";
 
         if ($dbConnection->query($queryDeleteTask)) {
@@ -100,7 +108,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
         exit;
     }
+    
+    //if action is update task
     elseif($_POST['type'] == 'updateTask'){
+        
         //validation
         // Check if id is empty
         if(empty(trim($_POST["id"]))){
@@ -133,14 +144,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         } else{
             $content = trim($_POST["content"]);
         }
-
+        
+        //starting to update taks
         $now = date('Y-m-d H:i:s');
         $queryUpdateTask = "UPDATE tasks SET title='$title', body='$content', updated_at='$now' WHERE id = $id";
         if ($dbConnection->query($queryUpdateTask)) {
             echo json_encode([
                 "status" => true,
                 "message" => "Task is successfully updated.",
-                "task" => getLastUpdatedTask($id)
+                "task" => getTask($id)
             ]);
         } else {
             echo json_encode([
