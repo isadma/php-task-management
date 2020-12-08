@@ -1,7 +1,7 @@
-let taskForms = document.getElementsByClassName('taskForm');
 let loading = document.getElementById('loading');
 let tasks = document.getElementById("tasks");
 
+//dom of new or updated task
 const taskItemDom = (id, title, content, createdAt, updatedAt) => `
     <div class="content-item" id="item`+id+`">
         <span>
@@ -58,14 +58,27 @@ const taskItemDom = (id, title, content, createdAt, updatedAt) => `
     </div>
 `;
 
-
+// if any form is submitted
 document.body.onsubmit = function(event) {
+    //preventing actions
     event.preventDefault();
+
+    //getting target
     const target = event.target;
+
+    //closing all modals
     closeALlModals();
+
+    // if task form is submitted
     if (target.className && target.className.indexOf('taskForm') !== -1) {
+
+        //starting loader
         loading.classList.remove('d-none');
+
+        //defining form data
         let formData = new FormData();
+
+        //pushing all data to formdata
         for( let j=0; j < target.elements.length; j++ ){
             const attribute = target.elements[j];
             formData.append(
@@ -73,8 +86,12 @@ document.body.onsubmit = function(event) {
                 encodeURIComponent(attribute.value)
             );
         }
+
+        // getting type and id from formdata
         const type = formData.get('type');
         const id = formData.get('id');
+
+        // confirmation of delete task
         if (type === 'deleteTask'){
             if (!confirm("Do you want to delete this task?")) {
                 loading.classList.add('d-none');
@@ -82,6 +99,7 @@ document.body.onsubmit = function(event) {
             }
         }
 
+        // starting request
         fetch(
             'tasks.php',
             {
@@ -90,18 +108,24 @@ document.body.onsubmit = function(event) {
             }
         )
             .then(response => {
+                // getting response data
                 response.json().then(function(data) {
+
+                    // showing notification
                     document.getElementById('message').classList.remove("d-none");
                     const messageText = document.getElementById('messageText');
                     messageText.classList.add( data.status ? "text-success" : "text-danger");
                     messageText.innerHTML = data.message;
 
+                    // if action is delete task remove task div from html
                     if (type === 'deleteTask'){
                         const task = document.getElementById("item"+id);
                         const editTask = document.getElementById("editTask"+id);
                         task.parentNode.removeChild(editTask);
                         task.parentNode.removeChild(task);
                     }
+
+                    // if action is edit task remove the edited task and updated one
                     if (type === 'updateTask'){
                         const task = document.getElementById("item"+id);
                         const editTask = document.getElementById("editTask"+id);
@@ -109,6 +133,8 @@ document.body.onsubmit = function(event) {
                         task.parentNode.removeChild(task);
                         tasks.insertAdjacentHTML('afterbegin', taskItemDom(data.task.id, data.task.title, data.task.body, data.task.createdAt, data.task.updatedAt));
                     }
+
+                    // if action is create task add to html
                     if (type === 'addTask'){
                         tasks.insertAdjacentHTML('afterbegin', taskItemDom(data.task.id, data.task.title, data.task.body, data.task.createdAt, data.task.updatedAt));
                         const noTask = document.getElementById("noTask");
@@ -117,11 +143,13 @@ document.body.onsubmit = function(event) {
                         }
                     }
                 });
+
+                //closing loader
                 loading.classList.add('d-none');
-                taskForms = document.getElementsByClassName('taskForm');
-                tasks = document.getElementById("tasks");
             })
             .catch((e) => {
+
+                // if any error on request
                 console.log(e);
                 loading.classList.add('d-none');
             });
