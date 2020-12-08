@@ -1,0 +1,320 @@
+/*global*/
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+
+/*-----------------*/
+/*typography*/
+/*-----------------*/
+.text-danger {
+    color: #d9534f;
+}
+
+.text-success {
+    color: #5cb85c;
+}
+
+.text-bold {
+    font-weight: 700;
+}
+
+.text-italic {
+    font-style: italic;
+}
+
+/*-----------------*/
+/*navbar*/
+/*-----------------*/
+.navbar {
+    overflow: hidden;
+    box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .5);
+}
+
+.navbar a{
+    float: left;
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar a:first-child{
+    font-weight: bold;
+}
+
+.navbar a:last-child{
+    float: right;
+}
+
+.active{
+    border-bottom: 1px solid #000000;
+}
+
+.navbar a:first-child:hover{
+    background-color: white;
+}
+
+.navbar a:hover{
+    background-color: #eaeaea;
+}
+
+/*-----------------*/
+/*content*/
+/*-----------------*/
+.content{
+    padding: 0 20px;
+    margin-bottom: 50px;
+}
+
+.header{
+    height: 40px;
+}
+
+.header h2{
+    float: left;
+}
+
+.header button{
+    float: right;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+}
+
+.content-data{
+    margin: 20px 0;
+    padding: 5px;
+}
+
+.content-item{
+    border: 1px solid #000000;
+    border-radius: 0.3rem;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.content-item span{
+    display: flex;
+    margin: 10px 0;
+}
+
+.content-item span strong{
+    margin-left: 5px;
+}
+
+
+/*-----------------*/
+/*form*/
+/*-----------------*/
+.form-group {
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+}
+
+.form-group label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.form-control{
+    display: block;
+    width: 100%;
+    padding: 0.3rem 0.75rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.form-text{
+    font-size: 12px;
+}
+
+
+/*-----------------*/
+/*button*/
+/*-----------------*/
+.btn {
+    display: inline-block;
+    margin: 0;
+    padding: 0.3rem 0.75rem;
+    border: 0;
+    border-radius: 0.25rem;
+    background-color: #72a4ff;
+    color: #fff;
+    text-decoration: none;
+    line-height: 1.5;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+}
+
+.btn-success {
+    background-color: #5cb85c;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+.btn:active {
+    box-shadow: inset 0 3px 4px hsla(0, 0%, 0%, 0.2);
+}
+
+
+.login-card {
+    position: fixed;
+    width: calc(25%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+/*-----------------*/
+/*modal*/
+/*-----------------*/
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+
+.cancel{
+    background-color: #d9534f;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*-----------------*/
+/*others*/
+/*-----------------*/
+
+.separator{
+    margin: 30px 0;
+}
+
+.alert{
+    margin: 20px 0;
+    width: 100%;
+}
+
+/*-----------------*/
+/*responsive*/
+/*-----------------*/
+@media only screen and (max-width: 600px) {
+    .login-card {
+        width: calc(80%);
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .w-40{
+        width: 100%;
+    }
+
+    .modal-content {
+        width: 80%;
+    }
+}
+
+/*-----------------*/
+/*loader*/
+/*-----------------*/
+.loading {
+    height: 0;
+    width: 0;
+    padding: 15px;
+    border: 6px solid #ccc;
+    border-right-color: #888;
+    border-radius: 22px;
+    -webkit-animation: rotate 1s infinite linear;
+    /* left, top and position just for the demo! */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+@-webkit-keyframes rotate {
+    /* 100% keyframe for  clockwise.
+       use 0% instead for anticlockwise */
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+/*-----------------*/
+/*extra*/
+/*-----------------*/
+.w-40{
+    width: 40%;
+}
+
+.mr-5{
+    margin-right: 5px;
+}
+
+.d-none{
+    display: none;
+}
+
+@media only screen and (min-width: 600px) {
+    .login-card {
+        width: calc(80%);
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .login-card {
+        width: calc(50%);
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .login-card {
+        width: calc(25%);
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+
+}
