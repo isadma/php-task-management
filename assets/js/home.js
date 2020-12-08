@@ -60,17 +60,17 @@ const taskItemDom = (id, title, content, createdAt, updatedAt) => `
 
 // if any form is submitted
 document.body.onsubmit = function(event) {
-    //preventing actions
-    event.preventDefault();
-
     //getting target
     const target = event.target;
 
-    //closing all modals
-    closeALlModals();
-
     // if task form is submitted
     if (target.className && target.className.indexOf('taskForm') !== -1) {
+
+        //preventing actions
+        event.preventDefault();
+
+        //closing all modals
+        closeALlModals();
 
         //starting loader
         loading.classList.remove('d-none');

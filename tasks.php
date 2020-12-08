@@ -15,8 +15,8 @@ function getTask($id){
     }
     return [
         "id" => $task['id'],
-        "title" => $task['title'],
-        "body" => $task['body'],
+        "title" => urldecode($task['title']),
+        "body" => urldecode($task['body']),
         "createdAt" => date('d-m-Y H:i', strtotime($task['created_at'])),
         "updatedAt" => date('d-m-Y H:i', strtotime($task['updated_at'])),
     ];
@@ -37,7 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             ]);
             exit;
         } else{
-            $id = trim($_POST["id"]);
+            $id = $_POST["id"];
         }
         // Check if title is empty
         if(empty(trim($_POST["title"]))){
@@ -47,7 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             ]);
             exit;
         } else{
-            $title = trim($_POST["title"]);
+            $title = $_POST["title"];
         }
 
         // Check if title is content
