@@ -6,7 +6,7 @@
 
     $dbConnection = new mysqli($dbHost, $dbUser, $dbPassword);
     if (mysqli_connect_errno()) {
-        printf("Could not connect to MySQL databse: %s\n", mysqli_connect_error());
+        printf("Could not connect to MySQL database: %s\n", mysqli_connect_error());
         exit();
     }
 

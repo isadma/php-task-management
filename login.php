@@ -58,7 +58,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
             }
             $emailErrorMessage = "These credentials do not match our records.";
-        } else {
+        }
+        else {
             $emailErrorMessage = "These credentials do not match our records.";
         }
     }
